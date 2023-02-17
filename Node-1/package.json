@@ -4,8 +4,7 @@
   "description": "xd",
   "main": "app.js",
   "scripts": {
-    "run": "nodemon app.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "nodemon app.js"
   },
   "author": "",
   "license": "ISC",
