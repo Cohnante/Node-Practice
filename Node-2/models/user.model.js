@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const {schemas} = mongoose
+const {Schema} = mongoose
 const uniqueValidator = require('mongoose-unique-validator')
 
-const userSchema = new schemas.Schema({
+const userSchema = new Schema({
     username: {
         type:String,
         required:true,
@@ -22,7 +22,7 @@ const userSchema = new schemas.Schema({
     }
 });
 
-userSchema.ssset('toJSON',{
+userSchema.set('toJSON',{
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString();
         delete returnedObject._id;

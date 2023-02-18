@@ -2,7 +2,8 @@ function errorHandler(err,req,res,next){
     if(typeof err === 'string'){
         return res.status(400).json({message:err})
     }
-    if(typeof err === 'UnauthrizedError'){
+    if(typeof err === 'UnauthorizedError'){
+        console.log("XD");
         return res.status(401).json({message:err.message})
     }
 
