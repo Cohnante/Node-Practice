@@ -1,8 +1,18 @@
+import morgan from 'morgan';
+
+import productsRoutes from './routes/products.routes'
+
 const express = require('express');
 const app = express();
-require('dotenv').config();
 
-const port = process.env.PORT || 4000;
+app.use(express.json());
 
-console.log("https://www.youtube.com/watch?v=lV7mxivGX_I");
-export default {app,port}
+app.use(morgan('dev'))
+
+app.get('/',(req,res)=>{
+    res.send('Hello World')
+})
+
+app.use('/products',productsRoutes)
+
+export default app
