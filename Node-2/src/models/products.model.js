@@ -5,8 +5,8 @@ const ProductSchema = new Schema({
     Category: String,
     Price: Number,
     imgURL: String,
-    _id:Number
-},{_id:{type:Number,unique:true}},
+    _id:String
+},{_id:{type:String,unique:true}},
 {
     timestamps:true,
     versionkey:false
