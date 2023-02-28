@@ -20,13 +20,13 @@ export const signUp = async(req,res)=>{
                 const FoundRol = await rol.find({name:{$in:req.body.rol}})
                 newUser.roles = FoundRol.map(rol=>rol._id);
             }else{
-                console.log('https://www.youtube.com/watch?v=lV7mxivGX_I 1/29/05');
                 const Rol = await rol.findOne({name:"User"})
                 newUser.roles = Rol._id
             }
 
             const UserSave = await newUser.save()
 
+            console.log(UserSave);
             const token = jwt.sign({
                 id: UserSave._id,
             },process.env.SecretJWT,{
@@ -39,5 +39,17 @@ export const signUp = async(req,res)=>{
 }
 
 export const signIn = async(req,res)=>{
-    res.json(`SignIn`)
+    
+    const UserFound = await User.findOne({email:req.body.email}).populate("roles")
+    console.log(UserFound);
+    const matchPassword = await bcrypt.compare(req.body.password,UserFound.password)
+
+    if(!UserFound)return res.status(400).json({message:"User not found"})
+    if(!matchPassword) return res.status(401).json({message:"password Incorrect"})
+
+    const token = await jwt.sign({id:UserFound._id},process.env.SecretJWT,{
+        expiresIn:86400
+    })
+    
+    res.json({token})
 }
